@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommandLine;
 using Rainbow.Model;
 using Rainbow.Storage.Yaml;
+using YmlTransform.Models;
 
 namespace YmlTransform
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
@@ -43,8 +41,7 @@ namespace YmlTransform
                         {
                             if (t.Type == "Shared")
                             {
-                                var field = item.SharedFields.FirstOrDefault(a => a.FieldId == t.FieldId) as ProxyFieldValue;
-                                if (field != null)
+                                if (item.SharedFields.FirstOrDefault(a => a.FieldId == t.FieldId) is ProxyFieldValue field)
                                 {
                                     Console.WriteLine($"Updating file {file} section {t.Type} id {t.FieldId} to {t.Value}");
                                     field.Value = t.Value;
@@ -53,11 +50,10 @@ namespace YmlTransform
                             }
                             else if (t.Type == "Languages")
                             {
-                                var field = item.Versions
+                                if (item.Versions
                                     .Where(a => t.Languages == "*")
                                     .SelectMany(a => a.Fields)
-                                    .FirstOrDefault(a => a.FieldId == t.FieldId) as ProxyFieldValue;
-                                if (field != null)
+                                    .FirstOrDefault(a => a.FieldId == t.FieldId) is ProxyFieldValue field)
                                 {
                                     Console.WriteLine($"Updating file {file} section {t.Type} id {t.FieldId} to {t.Value}");
                                     field.Value = t.Value;
@@ -66,8 +62,6 @@ namespace YmlTransform
                             }
                         }
                     }
-
-
 
                     if (transformed)
                     {
@@ -78,28 +72,6 @@ namespace YmlTransform
                 }
 
             }
-        }
-
-        class Options
-        {
-            [Option('p', "path", Required = true, HelpText = "Path to process")]
-            public string Path { get; set; }
-
-            [Option('r', "recursive", Required = false, HelpText = "Loop recursively", DefaultValue = false)]
-            public bool Recursive { get; set; }
-
-            [Option('t', "transform", Required = true, HelpText = "Transformation file")]
-            public string TransformFile { get; set; }
-        }
-
-        class TransformItem
-        {
-            public string Path { get; set; }
-            public string Type { get; set; }
-            public string Languages { get; set; }
-            public Guid FieldId { get; set; }
-            public string Value { get; set; }
-            public string Hint { get; set; }
         }
     }
 }
