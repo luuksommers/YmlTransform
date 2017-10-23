@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YmlTransform
+namespace YmlTransform.Models
 {
     class TransformItem
     {

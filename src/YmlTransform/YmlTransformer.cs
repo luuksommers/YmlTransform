@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Rainbow.Model;
 using Rainbow.Storage.Yaml;
+using YmlTransform.Models;
 
 namespace YmlTransform
 {
