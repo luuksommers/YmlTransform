@@ -1,0 +1,47 @@
+﻿---
+ID: "2a65abb0-3123-469f-a603-5f3b1804713c"
+Parent: "756fff26-90f2-4889-bace-da656e66b9c1"
+Template: "013bc834-c0f6-4377-924e-0de185abfbe7"
+Path: /sitecore/content/Home/MultiLanguage
+DB: master
+Languages:
+- Language: de
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "00000000-0000-0000-0000-000000000000"
+      Hint: Field1
+      Value: TransformedField1
+    - ID: "00000000-0000-0000-0000-000000000001"
+      Hint: Field2
+      Value: TransformedField2
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "00000000-0000-0000-0000-000000000000"
+      Hint: Field1
+      Value: TransformedField1
+    - ID: "00000000-0000-0000-0000-000000000001"
+      Hint: Field2
+      Value: TransformedField2
+- Language: fr
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "00000000-0000-0000-0000-000000000000"
+      Hint: Field1
+      Value: TransformedField1
+    - ID: "00000000-0000-0000-0000-000000000001"
+      Hint: Field2
+      Value: TransformedField2
+- Language: nl
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "00000000-0000-0000-0000-000000000000"
+      Hint: Field1
+      Value: TransformedField1
+    - ID: "00000000-0000-0000-0000-000000000001"
+      Hint: Field2
+      Value: TransformedField2
