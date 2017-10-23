@@ -1,0 +1,18 @@
+[
+    {
+        "FieldId": "00000000-0000-0000-0000-000000000000",
+        "Hint": "Field1",
+        "Languages": "*",
+        "Path": "/sitecore/content/Home/MultiLanguage",
+        "Type": "Languages",
+        "Value": "TransformedField1"
+    },
+    {
+        "FieldId": "00000000-0000-0000-0000-000000000001",
+        "Hint": "Field2",
+        "Languages": "*",
+        "Path": "/sitecore/content/Home/MultiLanguage",
+        "Type": "Languages",
+        "Value": "TransformedField2"
+    }
+]
