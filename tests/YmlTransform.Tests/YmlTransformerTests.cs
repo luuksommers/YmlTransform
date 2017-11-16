@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using Xunit;
 
 namespace YmlTransform.Tests
@@ -13,32 +15,28 @@ namespace YmlTransform.Tests
             const string originalFile = @"Data\\Multi-Language.yml";
             const string expectedFile = @"Data\\Multi-Language.ymlexpected";
 
-
             YmlTransformer.TransformFile(originalFile, "Data\\Multi-Language.ymltransform");
 
-            var originalHash = GetFileHash(originalFile);
-            var expectedHash = GetFileHash(expectedFile);
+            var originalHash = Utils.GetFileHash(originalFile);
+            var expectedHash = Utils.GetFileHash(expectedFile);
 
             Assert.Equal(expectedHash, originalHash);
         }
 
-        public string GetFileHash(string filename)
+        [Fact]
+        public void TestUnversionedTransformation()
         {
-            var hash = new SHA1Managed();
-            var clearBytes = File.ReadAllBytes(filename);
-            var hashedBytes = hash.ComputeHash(clearBytes);
-            return ConvertBytesToHex(hashedBytes);
-        }
+            const string originalFile = @"Data\\Unversioned.yml";
+            const string expectedFile = @"Data\\Unversioned.ymlexpected";
 
-        public string ConvertBytesToHex(byte[] bytes)
-        {
-            var sb = new StringBuilder();
+            YmlTransformer.TransformFile(originalFile, "Data\\Unversioned.ymltransform");
 
-            for (var i = 0; i < bytes.Length; i++)
-            {
-                sb.Append(bytes[i].ToString("x"));
-            }
-            return sb.ToString();
+            var originalHash = Utils.GetFileHash(originalFile);
+            var expectedHash = Utils.GetFileHash(expectedFile);
+
+            Console.WriteLine(originalHash, expectedHash);
+
+            Assert.Equal(expectedHash, originalHash);
         }
     }
 }
