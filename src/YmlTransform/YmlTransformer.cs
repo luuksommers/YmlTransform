@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Rainbow.Model;
 using Rainbow.Storage.Yaml;
+using Rainbow.Storage.Yaml.OutputModel;
 using YmlTransform.Models;
 
 namespace YmlTransform
@@ -58,6 +59,17 @@ namespace YmlTransform
                                 transformed = true;
                             }
                         }
+                        if (transform.Type == "Unversioned")
+                        {
+                            if (item.UnversionedFields.SelectMany(a => a.Fields).FirstOrDefault(a => a.FieldId == transform.FieldId) is IItemFieldValue field)
+                            {
+                                Console.WriteLine(
+                                    $"Updating file {file} section {transform.Type} id {transform.FieldId} to {transform.Value}");
+                                var privateField = field.GetPrivateFieldValue<YamlFieldValue>("_field");
+                                privateField.Value = transform.Value;
+                                transformed = true;
+                            }
+                        }
                         else if (transform.Type == "Languages")
                         {
                             var fields = item.Versions
@@ -67,12 +79,16 @@ namespace YmlTransform
 
                             foreach (var itemFieldValue in fields)
                             {
-                                var field = (ProxyFieldValue) itemFieldValue;
+                                var field = (ProxyFieldValue)itemFieldValue;
                                 Console.WriteLine(
                                     $"Updating file {file} section {transform.Type} id {transform.FieldId} to {transform.Value}");
                                 field.Value = transform.Value;
                                 transformed = true;
                             }
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
                         }
                     }
                 }
