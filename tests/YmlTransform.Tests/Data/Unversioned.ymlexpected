@@ -13,11 +13,11 @@ Languages:
   Fields:
   - ID: "11c0c7c6-673f-432a-b2fa-acfead30b6dd"
     Hint: Field1
-    Value: "Value1New"
+    Value: Value1New
   - ID: "814e27bf-7ae2-433c-affa-aafc0797e0a8"
     Hint: Field2
-    Value: "Value2New"
-Versions:
+    Value: Value2New
+  Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
