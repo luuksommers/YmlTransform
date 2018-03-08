@@ -16,18 +16,40 @@ namespace YmlTransform
         {
             var transformation = GetTransformation(transformFile);
             TransformSingle(transformation, fileToTransform);
+
+            if (!transformation.All(x => x.Used))
+            {
+                throw new IncompleteTransformationException(string.Join(",", transformation.Where(a=>!a.Used).Select(a=>$"{a.Path} {a.FieldId} {a.Type}")));
+            }
         }
 
 
         public static void TransformPath(string path, string transformFile, bool recursive)
         {
+            if (!Path.IsPathRooted(path))
+            {
+                path = Path.Combine(Directory.GetCurrentDirectory(), path);
+            }
+
             var transformations = GetTransformation(transformFile);
             var files = Directory.GetFiles(path, "*.yml",
                 recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 
             foreach (var file in files)
             {
-                TransformSingle(transformations, file);
+                try
+                {
+                    TransformSingle(transformations, file);
+                }
+                catch (YamlFormatException)
+                {
+
+                }
+            }
+
+            if (!transformations.All(x => x.Used))
+            {
+                throw new IncompleteTransformationException(string.Join(",", transformations.Where(a=>!a.Used).Select(a=>$"{a.Path} {a.FieldId} {a.Type}")));
             }
         }
 
@@ -60,7 +82,7 @@ namespace YmlTransform
                                 transformed = true;
                             }
                         }
-                        if (transform.Type == "Unversioned")
+                        else if (transform.Type == "Unversioned")
                         {
                             if (item.UnversionedFields.SelectMany(a => a.Fields).FirstOrDefault(a => a.FieldId == transform.FieldId) is IItemFieldValue field)
                             {
@@ -89,14 +111,9 @@ namespace YmlTransform
                         }
                         else
                         {
-                            throw new NotImplementedException();
+                            throw new NotImplementedException(transform.Type);
                         }
                     }
-                }
-
-                if (!transformations.All(x => x.Used))
-                {
-                    throw new IncompleteTransformationException();
                 }
 
                 if (transformed)
