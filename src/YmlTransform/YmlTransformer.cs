@@ -5,6 +5,7 @@ using System.Linq;
 using Rainbow.Model;
 using Rainbow.Storage.Yaml;
 using Rainbow.Storage.Yaml.OutputModel;
+using YmlTransform.Exceptions;
 using YmlTransform.Models;
 
 namespace YmlTransform
@@ -93,6 +94,10 @@ namespace YmlTransform
                     }
                 }
 
+                if (!transformations.All(x => x.Used))
+                {
+                    throw new IncompleteTransformationException();
+                }
 
                 if (transformed)
                 {
