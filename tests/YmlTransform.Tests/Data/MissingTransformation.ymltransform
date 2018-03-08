@@ -1,0 +1,18 @@
+[
+    {
+        "FieldId": "11c0c7c6-673f-432a-b2fa-acfead30b6dd",
+        "Hint": "Field1",
+        "Languages": "*",
+        "Path": "/sitecore/content/Home/Unversioned",
+        "Type": "Unversioned",
+        "Value": "Value1New"
+    },
+    {
+        "FieldId": "714e27bf-7ae2-433c-affa-aafc0797e0a8",
+        "Hint": "Field3",
+        "Languages": "*",
+        "Path": "/sitecore/content/Home/Unversioned",
+        "Type": "Unversioned",
+        "Value": "Value2New"
+    }
+]

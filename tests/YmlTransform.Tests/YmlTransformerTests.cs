@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Xunit;
+using YmlTransform.Exceptions;
 
 namespace YmlTransform.Tests
 {
@@ -37,6 +38,14 @@ namespace YmlTransform.Tests
             Console.WriteLine(originalHash, expectedHash);
 
             Assert.Equal(expectedHash, originalHash);
+        }
+
+        [Fact]
+        public void TestExceptionThrownOnIncompleteTransform()
+        {
+            const string originalFile = @"Data\\MissingTransformation.yml";
+
+            Assert.Throws<IncompleteTransformationException>(() => YmlTransformer.TransformFile(originalFile, "Data\\MissingTransformation.ymltransform"));
         }
     }
 }
